@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="ku" dir="rtl">
- <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kurdology-Exam</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<html lang="ku" dir="rtl"> 
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>Kurdology-Exam</title> 
+  <script src="https://cdn.tailwindcss.com"></script> 
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"> 
   <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -41,40 +41,36 @@
         .feedback-icon-visible {
             opacity: 1;
         }
-    </style>
- </head>
- <body>
-  <div id="quiz-container" class="w-full max-w-2xl bg-white shadow-xl rounded-2xl p-6 md:p-10">
-
-   <div class="flex justify-between items-center mb-6 border-b pb-4 border-gray-200">
+    </style> 
+ </head> 
+ <body> 
+  <div id="quiz-container" class="w-full max-w-2xl bg-white shadow-xl rounded-2xl p-6 md:p-10"> 
+   <div class="flex flex-row-reverse justify-between items-center mb-6 border-b pb-4 border-gray-200"> 
     <div class="text-lg font-semibold text-gray-700">
-      Score: <span id="score-display" class="text-green-600">0</span> / <span id="total-questions">72</span>
-    </div>
-    <h1 class="text-2xl font-bold text-[#6D9BCA]">Kurdology_Exam</h1>
-   </div>
-
-   <div id="question-card" class="mb-8 min-h-24">
-    <p class="text-2xl font-semibold text-gray-800 mb-4" id="question-text"> Loading question... </p>
-    <div id="options-container" class="space-y-4">
-    </div>
-   </div>
-
-   <div class="flex justify-between items-center pt-4 border-t border-gray-200">
-    <button id="next-button" onclick="nextQuestion()" class="px-6 py-3 bg-blue-600 text-white font-bold rounded-xl shadow-lg hover:bg-blue-700 transition duration-150 ease-in-out disabled:bg-gray-400" disabled> Next Question </button>
+      Score: <span id="score-display" class="text-green-600">0</span> / <span id="total-questions">72</span> 
+    </div> 
+    <h1 class="text-2xl font-bold text-[#6D9BCA]">Kurdology_Exam</h1> 
+   </div> 
+   <div id="question-card" class="mb-8 min-h-24"> 
+    <p class="text-2xl font-semibold text-gray-800 mb-4" id="question-text"> Loading question... </p> 
+    <div id="options-container" class="space-y-4"> 
+    </div> 
+   </div> 
+   <div class="flex flex-row-reverse justify-between items-center pt-4 border-t border-gray-200"> 
     <div class="text-lg text-gray-600 font-medium">
-      Question <span id="current-q-number">0</span> of 71
-    </div>
-   </div>
-
-   <div id="final-score-modal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-50">
-    <div class="bg-white rounded-xl p-8 text-center shadow-2xl w-full max-w-sm">
-     <h2 class="text-4xl font-extrabold text-blue-600 mb-4">!Quiz Complete</h2>
-     <p class="text-xl text-gray-700 mb-6">:Your final score is</p>
-     <p class="text-6xl font-black text-green-700 mb-8" id="final-score-text">0 / 72</p>
-     <button onclick="window.location.reload()" class="px-6 py-3 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition duration-150"> Start Over </button>
-    </div>
-   </div>
-  </div>
+      Question <span id="current-q-number">0</span> of <span id="total-questions-footer">0</span> 
+    </div> 
+    <div class="flex gap-3"> <!-- Next Question Button --> <button id="next-button" onclick="nextQuestion()" class="px-6 py-3 bg-blue-600 text-white font-bold rounded-xl shadow-lg hover:bg-blue-700 transition duration-150 ease-in-out disabled:bg-gray-400" disabled> &lt; </button> <!-- Previous Question Button --> <button id="prev-button" onclick="previousQuestion()" class="px-6 py-3 bg-black text-white font-bold rounded-xl shadow-lg hover:bg-gray-800 transition duration-150 ease-in-out disabled:bg-gray-400" disabled> &gt; </button> 
+    </div> 
+   </div> 
+   <div id="final-score-modal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-50"> 
+    <div class="bg-white rounded-xl p-8 text-center shadow-2xl w-full max-w-sm"> 
+     <h2 class="text-4xl font-extrabold text-blue-600 mb-4">!Quiz Complete</h2> 
+     <p class="text-xl text-gray-700 mb-6">:Your final score is</p> 
+     <p class="text-6xl font-black text-green-700 mb-8" id="final-score-text">0 / 71</p> <button onclick="window.location.reload()" class="px-6 py-3 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition duration-150"> Start Over </button> 
+    </div> 
+   </div> 
+  </div> 
   <script>
 
         const quizData = [
@@ -601,6 +597,7 @@
         const nextButton = document.getElementById('next-button');
         const finalScoreModal = document.getElementById('final-score-modal');
         const finalScoreText = document.getElementById('final-score-text');
+        const prevButton = document.getElementById('prev-button');
 
         // --- UTILITY ICONS (Inline SVG for instant rendering) ---
         const correctIconSVG = `
@@ -623,6 +620,7 @@
             const currentQ = quizData[currentQuestionIndex];
             answered = false;
             nextButton.disabled = true;
+            prevButton.disabled = currentQuestionIndex === 0;
             optionsContainer.innerHTML = '';
 
             questionText.textContent = currentQ.question;
@@ -694,6 +692,13 @@
             currentQuestionIndex++;
             loadQuestion();
         }
+        
+        function previousQuestion() {
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        loadQuestion();
+    }
+}
 
         function showFinalScore() {
             finalScoreText.textContent = `${score} / ${totalQuestions}`;
@@ -706,6 +711,6 @@
             loadQuestion();
         };
 
-    </script>
+    </script> 
  </body>
 </html>
